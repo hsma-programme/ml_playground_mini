@@ -332,3 +332,17 @@ may be lower, especially lower down the list or in other services.
 
 To go back to live data, replace `load_forecast()` in `demo_data.py` with a read of the combined
 forecast view. You would also need SHAP values from the live model for the waterfalls.
+
+## In-browser version (stlite)
+
+`stlite/build.py` builds a static copy of the app that runs entirely in the visitor's browser (stlite on
+Pyodide), for GitHub Pages. It copies the runtime files into `_site/` and patches only the copies, so the
+Community Cloud app is unchanged.
+
+    python stlite/build.py --serve     # builds, then serves http://localhost:8601/
+
+The GitHub Actions workflow `.github/workflows/stlite-pages.yml` deploys it on push to `main`
+(one-off: repo Settings > Pages > Source: GitHub Actions). See `STLITE_IMPLEMENTATION.md` for background.
+
+Limitations: the first load downloads tens of MB from CDNs (needs internet; later loads are cached), and the
+model "race" is paced with `asyncio.sleep` in the built copy only.

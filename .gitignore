@@ -6,3 +6,6 @@ prototypes/
 
 # Claude Code / Playwright MCP testing output
 .playwright-mcp/
+
+# stlite build output
+_site/
